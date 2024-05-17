@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:journal/database/entry_db.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,9 +13,22 @@ class MainApp extends StatelessWidget {
     return const MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Text('Hello World!'),
-        ),
+            child: TextButton(
+          onPressed: click,
+          child: Text("Hello"),
+        )),
       ),
     );
   }
+}
+
+void click() async {
+  print("Click");
+
+  var entryDB = EntryDB();
+
+  await entryDB.clearTable();
+  var entries = await entryDB.fetchAll();
+
+  print(entries);
 }
