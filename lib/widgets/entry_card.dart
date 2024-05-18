@@ -54,7 +54,6 @@ class EntryCard extends StatelessWidget {
                 flex: 3,
                 child: Text(
                   title,
-                  textAlign: TextAlign.left,
                   style: const TextStyle(
                       fontWeight: FontWeight.w600, fontSize: 16),
                 )),
