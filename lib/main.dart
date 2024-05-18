@@ -15,6 +15,7 @@ class MainApp extends StatelessWidget {
   // Override Build method - this is the layout of the widget
   @override
   Widget build(BuildContext context) {
+    //Dummy Entries
     final List<EntryCard> entries = [];
 
     for (int i = 0; i < 20; i++) {
