@@ -5,6 +5,11 @@ import 'package:path/path.dart';
 class DatabaseService {
   Database? _database;
 
+  /// Development mode for the data
+  /// `true` - Database is created in memory
+  /// `false` - Database uses file path
+  final bool _devMode = true;
+
   Future<Database> get database async {
     // If Database exists return database
     if (_database != null) {
@@ -24,7 +29,7 @@ class DatabaseService {
   }
 
   Future<Database> _initalize() async {
-    final path = await fullPath;
+    final path = _devMode ? ':memory:' : await fullPath;
 
     var database = await openDatabase(path,
         version: 1, onCreate: _create, singleInstance: true);
