@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 
 class EntryCard extends StatelessWidget {
+  final String id;
+  final int index;
   final String title;
   final String body;
+  final String createdAt;
+  final String? updatedAt;
 
-  const EntryCard({super.key, required this.title, required this.body});
+  const EntryCard(
+      {super.key,
+      required this.index,
+      required this.id,
+      required this.title,
+      required this.body,
+      required this.createdAt,
+      this.updatedAt});
 
   @override
   Widget build(BuildContext context) {

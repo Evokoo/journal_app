@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:journal/widgets/entry_card.dart';
 import 'package:journal/database/entry_db.dart';
+import 'package:journal/widgets/entry_form.dart';
+import 'package:journal/model/entry.dart';
 
 final entryDB = EntryDB();
 
@@ -8,32 +10,55 @@ void main() async {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   // Constructor
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  List<EntryCard> entries = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCards().then((cards) {
+      setState(() {
+        entries = cards;
+      });
+    });
+  }
 
   // Override Build method - this is the layout of the widget
   @override
   Widget build(BuildContext context) {
-    //Dummy Entries
-    final List<EntryCard> entries = [];
-
-    for (int i = 0; i < 20; i++) {
-      entries.add(EntryCard(
-          title: "This is title $i",
-          body:
-              "Curabitur tristique purus lobortis, eleifend erat vitae, mollis ipsum. Mauris efficitur, magna at pharetra volutpat, ipsum nisl eleifend ex, at porttitor felis odio eu mi. Nam sed magna rhoncus, dictum ipsum nec, posuere purus. Vivamus sodales finibus consectetur. Nam imperdiet faucibus est vitae auctor"));
-    }
-
     return MaterialApp(
         home: Scaffold(
-            appBar: AppBar(
-              title: const Text("Journal"),
-              centerTitle: true,
-              backgroundColor: Colors.blue[600],
-            ),
-            body: Container(
-                margin: const EdgeInsets.all(10),
-                child: ListView(children: entries))));
+      appBar: AppBar(
+        title: const Text("Journal"),
+        backgroundColor: Colors.blue[600],
+      ),
+      body: Container(margin: const EdgeInsets.all(10), child: EntryForm()),
+      // child: ListView(children: entries)),
+    ));
   }
+}
+
+Future<List<EntryCard>> fetchCards() async {
+  final List<Entry> entries = await entryDB.fetchAll();
+
+  List<EntryCard> cards = [];
+
+  for (Entry entry in entries) {
+    cards.add(EntryCard(
+        index: entry.index,
+        id: entry.id,
+        title: entry.title,
+        body: entry.body,
+        createdAt: entry.createdAt));
+  }
+
+  return cards;
 }
