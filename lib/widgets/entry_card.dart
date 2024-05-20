@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:journal/database/entry_db.dart';
+
+var entryDB = EntryDB();
 
 class EntryCard extends StatelessWidget {
   final String id;
@@ -49,8 +52,16 @@ class EntryCard extends StatelessWidget {
 
   Widget _icons() {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-      Icon(Icons.edit, color: Colors.grey[400]),
-      Icon(Icons.highlight_remove, color: Colors.grey[400])
+      IconButton(
+        icon: const Icon(Icons.edit),
+        color: Colors.grey[400],
+        onPressed: () => print("Edit"),
+      ),
+      IconButton(
+        icon: const Icon(Icons.highlight_remove),
+        color: Colors.grey[400],
+        onPressed: () => print("Delete"),
+      )
     ]);
   }
 

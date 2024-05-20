@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:journal/database/entry_db.dart';
+// import 'package:journal/database/entry_db.dart';
 import 'package:journal/pages/entry_form_page.dart';
 import 'package:journal/widgets/entry_card.dart';
 
-var entryDB = EntryDB();
+// var entryDB = EntryDB();
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,7 +18,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _loadEntries();
   }
 
   // Override Build method - this is the layout of the widget
@@ -37,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const EntryFormPage(),
+                      builder: (context) => EntryFormPage(),
                     ),
                   );
                 },
@@ -50,21 +49,5 @@ class _HomePageState extends State<HomePage> {
         body: ListView(
           children: entryCards,
         ));
-  }
-
-  Future<void> _loadEntries() async {
-    try {
-      var entries = await entryDB.fetchAll();
-      for (var entry in entries) {
-        entryCards.add(EntryCard(
-            index: entry.index,
-            id: entry.id,
-            title: entry.title,
-            body: entry.body,
-            createdAt: entry.createdAt));
-      }
-    } catch (error) {
-      print(error);
-    }
   }
 }

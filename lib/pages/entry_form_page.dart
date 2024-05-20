@@ -44,7 +44,7 @@ class EntryFormPage extends StatelessWidget {
   Widget _body(String label) {
     return TextField(
       decoration:
-          InputDecoration(labelText: label, border: OutlineInputBorder()),
+          InputDecoration(labelText: label, border: const OutlineInputBorder()),
       maxLines: 10,
     );
   }
@@ -52,7 +52,7 @@ class EntryFormPage extends StatelessWidget {
   // Button
   Widget _saveButton() {
     return ElevatedButton(
-      onPressed: () => print("saving item"),
+      onPressed: () => print("..."),
       style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
           foregroundColor: WidgetStateProperty.all<Color>(Colors.white)),
