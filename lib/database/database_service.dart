@@ -8,7 +8,7 @@ class DatabaseService {
   /// Development mode for the data
   /// `true` - Database is created in memory
   /// `false` - Database uses file path
-  final bool _devMode = true;
+  final bool _devMode = false;
 
   Future<Database> get database async {
     // If Database exists return database

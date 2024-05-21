@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 
-class EntryFormPage extends StatelessWidget {
-  const EntryFormPage({super.key});
+class EntryFormPage extends StatefulWidget {
+  final Function createHandler;
+
+  const EntryFormPage({
+    super.key,
+    required this.createHandler,
+  });
+
+  @override
+  State<EntryFormPage> createState() => _EntryFormPageState();
+}
+
+class _EntryFormPageState extends State<EntryFormPage> {
+  final _titleTC = TextEditingController();
+  final _bodyTC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +49,7 @@ class EntryFormPage extends StatelessWidget {
   // Title Field
   Widget _title(String label) {
     return TextField(
+        controller: _titleTC,
         decoration: InputDecoration(
             labelText: label, border: const OutlineInputBorder()));
   }
@@ -43,6 +57,7 @@ class EntryFormPage extends StatelessWidget {
   // Widget Field
   Widget _body(String label) {
     return TextField(
+      controller: _bodyTC,
       decoration:
           InputDecoration(labelText: label, border: const OutlineInputBorder()),
       maxLines: 10,
@@ -52,11 +67,20 @@ class EntryFormPage extends StatelessWidget {
   // Button
   Widget _saveButton() {
     return ElevatedButton(
-      onPressed: () => print("..."),
+      onPressed: () {
+        widget.createHandler(title: _titleTC.text, body: _bodyTC.text);
+
+        setState(() {
+          _titleTC.clear();
+          _bodyTC.clear();
+        });
+      },
       style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
           foregroundColor: WidgetStateProperty.all<Color>(Colors.white)),
       child: const Text("Save"),
     );
   }
+
+  void _cleanUp() {}
 }

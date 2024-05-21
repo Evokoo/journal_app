@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:journal/model/entry.dart';
 // import 'package:journal/database/entry_db.dart';
 import 'package:journal/pages/entry_form_page.dart';
 import 'package:journal/widgets/entry_card.dart';
@@ -18,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    _fetchEntries();
   }
 
   // Override Build method - this is the layout of the widget
@@ -36,7 +38,9 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => EntryFormPage(),
+                      builder: (context) => EntryFormPage(
+                        createHandler: _createEntry,
+                      ),
                     ),
                   );
                 },
@@ -49,5 +53,42 @@ class _HomePageState extends State<HomePage> {
         body: ListView(
           children: entryCards,
         ));
+  }
+
+  Future<void> _fetchEntries() async {
+    List<EntryCard> entryCardList = [];
+
+    try {
+      var entries = await entryDB.fetchAll();
+
+      for (Entry entry in entries) {
+        entryCardList.add(EntryCard(
+          index: entry.index,
+          id: entry.id,
+          title: entry.title,
+          body: entry.body,
+          createdAt: entry.createdAt,
+          deleteHandler: _deleteEntry,
+        ));
+      }
+    } catch (error) {
+      print(error);
+    } finally {
+      setState(() => entryCards = entryCardList);
+    }
+  }
+
+  Future<void> _createEntry(
+      {required String title, required String body}) async {
+    await entryDB.create(title: title, body: body);
+
+    _fetchEntries();
+    Navigator.pop(context);
+  }
+
+  Future<void> _deleteEntry(String id) async {
+    await entryDB.delete(id);
+
+    _fetchEntries();
   }
 }
