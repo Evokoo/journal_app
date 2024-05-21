@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:journal/model/entry.dart';
-// import 'package:journal/database/entry_db.dart';
+import 'package:journal/database/entry_db.dart';
 import 'package:journal/pages/entry_form_page.dart';
 import 'package:journal/widgets/entry_card.dart';
 
-// var entryDB = EntryDB();
+var entryDB = EntryDB();
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -39,6 +39,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => EntryFormPage(
+                        createMode: true,
                         createHandler: _createEntry,
                       ),
                     ),
@@ -51,6 +52,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: ListView(
+          padding: EdgeInsets.all(5),
           children: entryCards,
         ));
   }
@@ -68,7 +70,8 @@ class _HomePageState extends State<HomePage> {
           title: entry.title,
           body: entry.body,
           createdAt: entry.createdAt,
-          deleteHandler: _deleteEntry,
+          deleteHandler: _deleteHandler,
+          updateHandler: _upateHandler,
         ));
       }
     } catch (error) {
@@ -82,11 +85,23 @@ class _HomePageState extends State<HomePage> {
       {required String title, required String body}) async {
     await entryDB.create(title: title, body: body);
 
-    _fetchEntries();
-    Navigator.pop(context);
+    if (mounted) {
+      _fetchEntries();
+      Navigator.pop(context);
+    }
   }
 
-  Future<void> _deleteEntry(String id) async {
+  Future<void> _upateHandler(
+      {required String id, required String title, required String body}) async {
+    await entryDB.update(id: id, title: title, body: body);
+
+    if (mounted) {
+      _fetchEntries();
+      Navigator.pop(context);
+    }
+  }
+
+  Future<void> _deleteHandler(String id) async {
     await entryDB.delete(id);
 
     _fetchEntries();

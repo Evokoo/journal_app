@@ -14,13 +14,15 @@ This project aims to build a mobile journal application using Flutter
   - [x] Update
   - [x] Delete
   - [x] Fetch / Read
-- [ ] Interaction
-  - [ ] User can view all entries
+- [x] Interaction
+  - [x] User can view all entries
   - [x] User can add a new entry
-  - [ ] User can delete an entry
-  - [ ] User can update an entry
-  - [ ] Reset form on submit
+  - [x] User can delete an entry
+  - [x] User can update an entry
+  - [x] Reset form on submit
   - [x] Navigation between pages
 - [ ] UI
   - [x] List of entries
   - [x] Entry creation form
+  - [ ] Display time of update
+  -

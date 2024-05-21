@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 
 class EntryFormPage extends StatefulWidget {
-  final Function createHandler;
+  final Function? createHandler;
+  final Function? updateHandler;
+  final bool createMode;
+  final String? title;
+  final String? body;
+  final String? id;
 
   const EntryFormPage({
     super.key,
-    required this.createHandler,
+    required this.createMode,
+    this.createHandler,
+    this.updateHandler,
+    this.title,
+    this.body,
+    this.id,
   });
 
   @override
@@ -15,6 +25,14 @@ class EntryFormPage extends StatefulWidget {
 class _EntryFormPageState extends State<EntryFormPage> {
   final _titleTC = TextEditingController();
   final _bodyTC = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _titleTC.text = widget.title ?? "";
+    _bodyTC.text = widget.body ?? "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +86,12 @@ class _EntryFormPageState extends State<EntryFormPage> {
   Widget _saveButton() {
     return ElevatedButton(
       onPressed: () {
-        widget.createHandler(title: _titleTC.text, body: _bodyTC.text);
+        if (widget.createMode) {
+          widget.createHandler!(title: _titleTC.text, body: _bodyTC.text);
+        } else {
+          widget.updateHandler!(
+              title: _titleTC.text, body: _bodyTC.text, id: widget.id);
+        }
 
         setState(() {
           _titleTC.clear();
@@ -78,9 +101,7 @@ class _EntryFormPageState extends State<EntryFormPage> {
       style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
           foregroundColor: WidgetStateProperty.all<Color>(Colors.white)),
-      child: const Text("Save"),
+      child: widget.createMode ? const Text("Save") : const Text("Update"),
     );
   }
-
-  void _cleanUp() {}
 }

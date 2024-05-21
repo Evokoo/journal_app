@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:journal/database/entry_db.dart';
+import 'package:journal/pages/entry_form_page.dart';
 
 var entryDB = EntryDB();
 
@@ -11,6 +12,7 @@ class EntryCard extends StatefulWidget {
   final String createdAt;
   final String? updatedAt;
   final Function? deleteHandler;
+  final Function? updateHandler;
 
   const EntryCard(
       {super.key,
@@ -20,7 +22,8 @@ class EntryCard extends StatefulWidget {
       required this.body,
       required this.createdAt,
       this.updatedAt,
-      this.deleteHandler});
+      this.deleteHandler,
+      this.updateHandler});
 
   @override
   State<EntryCard> createState() => _EntryCardState();
@@ -30,6 +33,7 @@ class _EntryCardState extends State<EntryCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+        color: Colors.grey[300],
         margin: const EdgeInsets.all(5),
         child: Padding(
             padding: const EdgeInsets.all(5),
@@ -63,13 +67,24 @@ class _EntryCardState extends State<EntryCard> {
   Widget _icons() {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       IconButton(
-        icon: const Icon(Icons.edit),
-        color: Colors.grey[400],
-        onPressed: () => print("Edit"),
-      ),
+          icon: const Icon(Icons.edit),
+          color: Colors.grey[500],
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => EntryFormPage(
+                  id: widget.id,
+                  title: widget.title,
+                  body: widget.body,
+                  createMode: false,
+                  updateHandler: widget.updateHandler,
+                ),
+              ),
+            );
+          }),
       IconButton(
         icon: const Icon(Icons.highlight_remove),
-        color: Colors.grey[400],
+        color: Colors.grey[500],
         onPressed: () => widget.deleteHandler!(widget.id),
       )
     ]);
