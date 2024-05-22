@@ -26,35 +26,55 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            "Journal Entries",
-            style: TextStyle(color: Colors.white),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.blue[800],
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => EntryFormPage(
-                        createMode: true,
-                        createHandler: _createEntry,
-                      ),
-                    ),
-                  );
-                },
-                icon: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ))
-          ],
+      appBar: AppBar(
+        title: const Text(
+          "Journal Entries",
+          style: TextStyle(color: Colors.white),
         ),
-        body: ListView(
-          padding: EdgeInsets.all(5),
-          children: entryCards,
-        ));
+        centerTitle: true,
+        backgroundColor: Colors.blue[800],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => EntryFormPage(
+                      createMode: true,
+                      createHandler: _createEntry,
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ))
+        ],
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(5),
+        children: entryCards,
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue[700],
+        elevation: 10,
+        shape: CircleBorder(),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => EntryFormPage(
+                createMode: true,
+                createHandler: _createEntry,
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Future<void> _fetchEntries() async {

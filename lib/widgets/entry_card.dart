@@ -30,17 +30,20 @@ class EntryCard extends StatefulWidget {
 }
 
 class _EntryCardState extends State<EntryCard> {
+  bool readMore = false;
+
   @override
   Widget build(BuildContext context) {
     return Card(
-        color: Colors.grey[300],
+        color: Colors.amber[500],
         margin: const EdgeInsets.all(5),
         child: Padding(
             padding: const EdgeInsets.all(5),
-            child: Column(children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               _titleBar(widget.title),
               _bodyContent(widget.body),
-              _date()
+              _date(),
             ])));
   }
 
@@ -65,10 +68,10 @@ class _EntryCardState extends State<EntryCard> {
   }
 
   Widget _icons() {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+    return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
       IconButton(
           icon: const Icon(Icons.edit),
-          color: Colors.grey[500],
+          color: Colors.amber[700],
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
@@ -84,7 +87,7 @@ class _EntryCardState extends State<EntryCard> {
           }),
       IconButton(
         icon: const Icon(Icons.highlight_remove),
-        color: Colors.grey[500],
+        color: Colors.amber[700],
         onPressed: () => widget.deleteHandler!(widget.id),
       )
     ]);
@@ -95,10 +98,10 @@ class _EntryCardState extends State<EntryCard> {
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-                flex: 3,
+                flex: 2,
                 child: Text(
                   title,
                   style: const TextStyle(
@@ -113,9 +116,19 @@ class _EntryCardState extends State<EntryCard> {
     return Padding(
         padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
         child: Wrap(children: [
-          Text(
-            body,
-          )
+          if (body.length > 200)
+            GestureDetector(
+              child: Text(readMore ? body : "${body.substring(0, 200)}..."),
+              onTap: () {
+                setState(() {
+                  readMore = !readMore;
+                  print(readMore);
+                });
+              },
+            )
+          else
+            Text(body),
+          // body,
         ]));
   }
 }
