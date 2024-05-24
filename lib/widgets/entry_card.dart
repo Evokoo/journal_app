@@ -34,13 +34,20 @@ class EntryCard extends StatefulWidget {
 
 class _EntryCardState extends State<EntryCard> {
   bool readMore = false;
-
-  late MaterialColor cardColor;
+  MaterialColor cardColor = getColor(0);
 
   @override
   void initState() {
     super.initState();
     cardColor = getColor(widget.colorID);
+  }
+
+  @override
+  void didUpdateWidget(covariant EntryCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.colorID != oldWidget.colorID) {
+      setState(() => cardColor = getColor(widget.colorID));
+    }
   }
 
   @override
