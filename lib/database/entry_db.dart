@@ -16,6 +16,7 @@ class EntryDB {
         "index" INTEGER PRIMARY KEY AUTOINCREMENT,
         "title" TEXT NOT NULL,
         "body" TEXT NOT NULL,
+        "color_id" INTEGER NOT NULL,
         "created_at" TEXT NOT NULL,
         "updated_at" TEXT
       );
@@ -27,23 +28,29 @@ class EntryDB {
     await database.rawDelete('DELETE FROM $tableName');
   }
 
-  Future<int> create({required String title, required String body}) async {
+  Future<int> create(
+      {required String title,
+      required String body,
+      required int colorID}) async {
     final database = await DatabaseService().database;
     final timeNow = DateTime.now().toString();
 
     return await database.rawInsert(
-      '''INSERT INTO $tableName (id,title,body,created_at,updated_at) VALUES (?,?,?,?,?)''',
-      [uuid.v4(), title, body, timeNow, timeNow],
+      '''INSERT INTO $tableName (id,title,body,created_at,updated_at,color_id) VALUES (?,?,?,?,?,?)''',
+      [uuid.v4(), title, body, timeNow, timeNow, colorID],
     );
   }
 
   Future<int> update(
-      {required String id, required String title, required String body}) async {
+      {required String id,
+      required String title,
+      required String body,
+      required int colorID}) async {
     final database = await DatabaseService().database;
 
     return await database.rawUpdate(
-        '''UPDATE $tableName SET title = ?, body = ?, updated_at = ? WHERE id = ?''',
-        [title, body, DateTime.now().toString(), id]);
+        '''UPDATE $tableName SET title = ?, body = ?, updated_at = ?, color_id = ? WHERE id = ?''',
+        [title, body, DateTime.now().toString(), colorID, id]);
   }
 
   Future<int> delete(String id) async {

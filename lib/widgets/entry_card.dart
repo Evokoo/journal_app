@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:journal/assets/card_colors.dart';
 import 'package:journal/database/entry_db.dart';
 import 'package:journal/pages/entry_form_page.dart';
 
@@ -10,6 +11,7 @@ class EntryCard extends StatefulWidget {
   final String title;
   final String body;
   final String createdAt;
+  final int colorID;
   final String? updatedAt;
   final Function? deleteHandler;
   final Function? updateHandler;
@@ -21,6 +23,7 @@ class EntryCard extends StatefulWidget {
       required this.title,
       required this.body,
       required this.createdAt,
+      required this.colorID,
       this.updatedAt,
       this.deleteHandler,
       this.updateHandler});
@@ -32,10 +35,18 @@ class EntryCard extends StatefulWidget {
 class _EntryCardState extends State<EntryCard> {
   bool readMore = false;
 
+  late MaterialColor cardColor;
+
+  @override
+  void initState() {
+    super.initState();
+    cardColor = getColor(widget.colorID);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
-        color: Colors.amber[500],
+        color: cardColor[200],
         margin: const EdgeInsets.all(5),
         child: Padding(
             padding: const EdgeInsets.all(5),
@@ -71,7 +82,7 @@ class _EntryCardState extends State<EntryCard> {
     return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
       IconButton(
           icon: const Icon(Icons.edit),
-          color: Colors.amber[700],
+          color: cardColor[700],
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
@@ -79,6 +90,7 @@ class _EntryCardState extends State<EntryCard> {
                   id: widget.id,
                   title: widget.title,
                   body: widget.body,
+                  colorID: widget.colorID,
                   createMode: false,
                   updateHandler: widget.updateHandler,
                 ),
@@ -87,7 +99,7 @@ class _EntryCardState extends State<EntryCard> {
           }),
       IconButton(
         icon: const Icon(Icons.highlight_remove),
-        color: Colors.amber[700],
+        color: cardColor[700],
         onPressed: () => widget.deleteHandler!(widget.id),
       )
     ]);

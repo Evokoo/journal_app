@@ -90,6 +90,7 @@ class _HomePageState extends State<HomePage> {
           title: entry.title,
           body: entry.body,
           createdAt: entry.createdAt,
+          colorID: entry.colorID,
           deleteHandler: _deleteHandler,
           updateHandler: _upateHandler,
         ));
@@ -97,13 +98,16 @@ class _HomePageState extends State<HomePage> {
     } catch (error) {
       print(error);
     } finally {
+      print("Updating entries list");
       setState(() => entryCards = entryCardList);
     }
   }
 
   Future<void> _createEntry(
-      {required String title, required String body}) async {
-    await entryDB.create(title: title, body: body);
+      {required String title,
+      required String body,
+      required int colorID}) async {
+    await entryDB.create(title: title, body: body, colorID: colorID);
 
     if (mounted) {
       _fetchEntries();
@@ -112,8 +116,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _upateHandler(
-      {required String id, required String title, required String body}) async {
-    await entryDB.update(id: id, title: title, body: body);
+      {required String id,
+      required String title,
+      required String body,
+      required int colorID}) async {
+    await entryDB.update(id: id, title: title, body: body, colorID: colorID);
 
     if (mounted) {
       _fetchEntries();

@@ -4,6 +4,7 @@ class Entry {
   final String title;
   final String body;
   final String createdAt;
+  final int colorID;
   final String? updatedAt;
 
   Entry(
@@ -12,6 +13,7 @@ class Entry {
       required this.title,
       required this.body,
       required this.createdAt,
+      required this.colorID,
       this.updatedAt});
 
   factory Entry.convertQuery(Map<String, dynamic> query) => Entry(
@@ -19,6 +21,7 @@ class Entry {
       index: query["index"],
       title: query["title"] ?? "",
       body: query["body"] ?? "",
+      colorID: query["color_id"],
       createdAt: query["created_at"],
       updatedAt: query["updated_at"]);
 
