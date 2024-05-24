@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:journal/assets/card_colors.dart';
+import 'package:journal/assets/my_colors.dart';
 import 'package:journal/database/entry_db.dart';
 import 'package:journal/pages/entry_form_page.dart';
 
-var entryDB = EntryDB();
+final entryDB = EntryDB();
+final myColors = ColorHelper();
 
 class EntryCard extends StatefulWidget {
   final String id;
@@ -34,19 +35,19 @@ class EntryCard extends StatefulWidget {
 
 class _EntryCardState extends State<EntryCard> {
   bool readMore = false;
-  MaterialColor cardColor = getColor(0);
+  MaterialColor cardColor = myColors.getColor(0);
 
   @override
   void initState() {
     super.initState();
-    cardColor = getColor(widget.colorID);
+    cardColor = myColors.getColor(widget.colorID);
   }
 
   @override
   void didUpdateWidget(covariant EntryCard oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.colorID != oldWidget.colorID) {
-      setState(() => cardColor = getColor(widget.colorID));
+      setState(() => cardColor = myColors.getColor(widget.colorID));
     }
   }
 
@@ -122,9 +123,11 @@ class _EntryCardState extends State<EntryCard> {
             Expanded(
                 flex: 2,
                 child: Text(
-                  title,
+                  title.toUpperCase(),
                   style: const TextStyle(
-                      fontWeight: FontWeight.w600, fontSize: 16),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
                 )),
             Expanded(flex: 1, child: _icons())
           ],

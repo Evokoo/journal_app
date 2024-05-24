@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:journal/assets/card_colors.dart';
+import 'package:journal/assets/my_colors.dart';
+
+final myColors = ColorHelper();
 
 class EntryFormPage extends StatefulWidget {
   final Function? createHandler;
@@ -39,7 +41,7 @@ class _EntryFormPageState extends State<EntryFormPage> {
     _titleTC.text = widget.title ?? "";
     _bodyTC.text = widget.body ?? "";
     _colorId = widget.colorID ?? 0;
-    _color = getColor(_colorId);
+    _color = myColors.getColor(_colorId);
   }
 
   @override
@@ -48,11 +50,12 @@ class _EntryFormPageState extends State<EntryFormPage> {
         appBar: AppBar(
           title: const Text(
             "Add New Entry",
-            style: TextStyle(color: Colors.black),
+            style:
+                TextStyle(color: Colors.black87, fontWeight: FontWeight.w700),
           ),
           centerTitle: true,
           backgroundColor: _color[300],
-          iconTheme: const IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black87),
         ),
         body: Container(
             color: _color[300],
@@ -72,12 +75,12 @@ class _EntryFormPageState extends State<EntryFormPage> {
     void assingColor(int index) {
       setState(() {
         _colorId = index;
-        _color = getColor(_colorId);
+        _color = myColors.getColor(_colorId);
       });
     }
 
-    List<Widget> swatches = getAllColors().asMap().entries.map((el) {
-      final color = getColor(el.key);
+    List<Widget> swatches = myColors.getAllColors().asMap().entries.map((el) {
+      final color = myColors.getColor(el.key);
 
       return InkWell(
           onTap: () => assingColor(el.key),

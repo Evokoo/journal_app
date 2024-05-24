@@ -29,25 +29,19 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text(
           "Journal Entries",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
         ),
         centerTitle: true,
-        backgroundColor: Colors.blue[800],
+        backgroundColor: Colors.white,
+        shadowColor: Colors.black54,
+        elevation: 5,
+        scrolledUnderElevation: 5,
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => EntryFormPage(
-                      createMode: true,
-                      createHandler: _createEntry,
-                    ),
-                  ),
-                );
-              },
+              onPressed: _toEntryForm,
               icon: const Icon(
                 Icons.add,
-                color: Colors.white,
+                color: Colors.black54,
               ))
         ],
       ),
@@ -58,21 +52,12 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue[700],
         elevation: 10,
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
+        onPressed: _toEntryForm,
         child: const Icon(
           Icons.add,
           color: Colors.white,
         ),
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => EntryFormPage(
-                createMode: true,
-                createHandler: _createEntry,
-              ),
-            ),
-          );
-        },
       ),
     );
   }
@@ -132,5 +117,16 @@ class _HomePageState extends State<HomePage> {
     await entryDB.delete(id);
 
     _fetchEntries();
+  }
+
+  void _toEntryForm() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => EntryFormPage(
+          createMode: true,
+          createHandler: _createEntry,
+        ),
+      ),
+    );
   }
 }
