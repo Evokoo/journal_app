@@ -75,6 +75,7 @@ class _HomePageState extends State<HomePage> {
           title: entry.title,
           body: entry.body,
           createdAt: entry.createdAt,
+          updatedAt: entry.updatedAt,
           colorID: entry.colorID,
           deleteHandler: _deleteHandler,
           updateHandler: _upateHandler,
@@ -104,8 +105,14 @@ class _HomePageState extends State<HomePage> {
       {required String id,
       required String title,
       required String body,
-      required int colorID}) async {
-    await entryDB.update(id: id, title: title, body: body, colorID: colorID);
+      required int colorID,
+      required String updatedAt}) async {
+    await entryDB.update(
+        id: id,
+        title: title,
+        body: body,
+        colorID: colorID,
+        updatedAt: updatedAt);
 
     if (mounted) {
       _fetchEntries();

@@ -36,8 +36,8 @@ class EntryDB {
     final timeNow = DateTime.now().toString();
 
     return await database.rawInsert(
-      '''INSERT INTO $tableName (id,title,body,created_at,updated_at,color_id) VALUES (?,?,?,?,?,?)''',
-      [uuid.v4(), title, body, timeNow, timeNow, colorID],
+      '''INSERT INTO $tableName (id,title,body,created_at,color_id) VALUES (?,?,?,?,?)''',
+      [uuid.v4(), title, body, timeNow, colorID],
     );
   }
 
@@ -45,12 +45,13 @@ class EntryDB {
       {required String id,
       required String title,
       required String body,
-      required int colorID}) async {
+      required int colorID,
+      required String updatedAt}) async {
     final database = await DatabaseService().database;
 
     return await database.rawUpdate(
         '''UPDATE $tableName SET title = ?, body = ?, updated_at = ?, color_id = ? WHERE id = ?''',
-        [title, body, DateTime.now().toString(), colorID, id]);
+        [title, body, updatedAt, colorID, id]);
   }
 
   Future<int> delete(String id) async {

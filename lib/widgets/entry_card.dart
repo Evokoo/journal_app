@@ -66,22 +66,32 @@ class _EntryCardState extends State<EntryCard> {
             ])));
   }
 
-  Widget _date() {
-    DateTime dt = DateTime.parse(widget.createdAt);
+  String _parseDate(String input) {
+    DateTime dt = DateTime.parse(input);
     String mm = dt.month.toString().padLeft(2, "0");
     String dd = dt.day.toString();
-    String yyyy = dt.year.toString();
+    String yyyy = dt.year.toString().substring(2);
     String min = dt.minute.toString().padLeft(2, "0");
     String hour = dt.hour.toString();
 
+    return "$dd/$mm/$yyyy @ $hour:$min";
+  }
+
+  Widget _date() {
     return Padding(
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-        child: Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              "$dd - $mm - $yyyy @ $hour:$min",
+              "Created at: ${_parseDate(widget.createdAt)}",
               style: const TextStyle(fontSize: 12),
-            )
+            ),
+            if (widget.updatedAt != null)
+              Text(
+                "Updated at: ${_parseDate(widget.updatedAt!)}",
+                style: const TextStyle(fontSize: 12),
+              )
           ],
         ));
   }

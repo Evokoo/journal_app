@@ -143,7 +143,8 @@ class _EntryFormPageState extends State<EntryFormPage> {
               title: _titleTC.text,
               body: _bodyTC.text,
               id: widget.id,
-              colorID: _colorId);
+              colorID: _colorId,
+              updatedAt: DateTime.now().toString());
         }
 
         setState(() {
