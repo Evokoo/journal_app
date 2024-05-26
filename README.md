@@ -27,3 +27,4 @@ This project aims to build a mobile journal application using Flutter
   - [x] Entry creation form
   - [x] Display time of update
   - [ ] Fix Input form
+- Setup up ThemeData
