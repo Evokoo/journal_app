@@ -47,27 +47,28 @@ class _EntryFormPageState extends State<EntryFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            "Add New Entry",
-            style:
-                TextStyle(color: Colors.black87, fontWeight: FontWeight.w700),
-          ),
-          centerTitle: true,
-          backgroundColor: _color[300],
-          iconTheme: const IconThemeData(color: Colors.black87),
+      appBar: AppBar(
+        title: const Text(
+          "Add New Entry",
+          style: TextStyle(color: Colors.black87),
         ),
-        body: Container(
-            color: _color[300],
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                _colorPicker(),
-                _p(_title("Title"), [5, 12, 5, 12]),
-                _p(_body("Body"), [5, 12, 5, 12]),
-                _saveButton()
-              ],
-            )));
+        backgroundColor: _color[300],
+        iconTheme: const IconThemeData(
+          color: Colors.black87,
+        ),
+      ),
+      body: Container(
+          color: _color[300],
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: [
+              _colorPicker(),
+              _p(_title("Title"), [5, 12, 5, 12]),
+              _p(_body("Body"), [5, 12, 5, 12]),
+              _saveButton()
+            ],
+          )),
+    );
   }
 
   //Color picker

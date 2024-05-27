@@ -27,22 +27,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Journal Entries",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        shadowColor: Colors.black54,
-        elevation: 5,
-        scrolledUnderElevation: 5,
+        title: const Text("Journal Entries"),
         actions: [
-          IconButton(
-              onPressed: _toEntryForm,
-              icon: const Icon(
-                Icons.add,
-                color: Colors.black54,
-              ))
+          IconButton(onPressed: _toEntryForm, icon: const Icon(Icons.add))
         ],
       ),
       body: ListView(
@@ -50,13 +37,9 @@ class _HomePageState extends State<HomePage> {
         children: entryCards,
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue[700],
-        elevation: 10,
-        shape: const CircleBorder(),
         onPressed: _toEntryForm,
         child: const Icon(
           Icons.add,
-          color: Colors.white,
         ),
       ),
     );

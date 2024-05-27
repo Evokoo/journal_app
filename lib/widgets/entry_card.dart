@@ -54,8 +54,7 @@ class _EntryCardState extends State<EntryCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-        color: cardColor[200],
-        margin: const EdgeInsets.all(5),
+        color: cardColor.shade200,
         child: Padding(
             padding: const EdgeInsets.all(5),
             child:
