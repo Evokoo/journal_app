@@ -67,7 +67,6 @@ class _HomePageState extends State<HomePage> {
     } catch (error) {
       print(error);
     } finally {
-      print("Updating entries list");
       setState(() => entryCards = entryCardList);
     }
   }
