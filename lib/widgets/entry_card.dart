@@ -68,7 +68,7 @@ class _EntryCardState extends State<EntryCard> {
   String _parseDate(String input) {
     DateTime dt = DateTime.parse(input);
     String mm = dt.month.toString().padLeft(2, "0");
-    String dd = dt.day.toString();
+    String dd = dt.day.toString().padLeft(2, "0");
     String yyyy = dt.year.toString().substring(2);
     String min = dt.minute.toString().padLeft(2, "0");
     String hour = dt.hour.toString();
