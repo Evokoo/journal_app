@@ -21,10 +21,12 @@ This project aims to build a mobile journal application using Flutter
   - [x] User can update an entry
   - [x] Reset form on submit
   - [x] Navigation between pages
-  - [ ] Add Form validation
+  - [x] Add Form validation
 - [ ] UI
   - [x] List of entries
   - [x] Entry creation form
   - [x] Display time of update
-  - [ ] Fix Input form
-- Setup up ThemeData
+  - [x] Fix Input form
+  - [ ] ISSUE: Validation pushes widgets out of bound
+- [x] App Theming
+- [ ] Clean up / Organise file tree
