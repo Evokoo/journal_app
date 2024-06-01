@@ -6,7 +6,7 @@ final myColors = ColorHelper();
 class InputFormPage extends StatefulWidget {
   final Function? entryCreate;
   final Function? entryUpdate;
-  final bool? createMode;
+  final bool createMode;
 
   final String? title;
   final String? body;
@@ -84,6 +84,8 @@ class _InputFormPageState extends State<InputFormPage> {
       _fieldTitle.clear();
       _fieldBody.clear();
     });
+
+    Navigator.pop(context);
   }
 
   Widget _textInput(TextEditingController controller, title,
@@ -139,37 +141,40 @@ class _InputFormPageState extends State<InputFormPage> {
     return ElevatedButton(
       onPressed: () {
         if (_formKey.currentState!.validate()) {
-          late String msg;
+          FocusScope.of(context).unfocus();
 
-          if (widget.createMode) {
-            // Creating new entry
-            widget.entryCreate!(
-                title: _fieldTitle.text,
-                body: _fieldBody.text,
-                colorID: _colourID);
-
-            msg = "Saving Entry";
-          } else {
-            // Updating entry
-            widget.entryUpdate!(
-                title: _fieldTitle.text,
-                body: _fieldBody.text,
-                id: widget.id,
-                colorID: _colourID,
-                updatedAt: DateTime.now().toString());
-
-            msg = "Updating Entry";
-          }
+          late String msg =
+              "${widget.createMode ? "Saving" : "Updating"} Entry...";
 
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(msg)),
+            SnackBar(content: Text(msg), duration: Duration(seconds: 2)),
           );
 
-          // Clean up form
-          _formCleanUp();
+          Future.delayed(Duration(seconds: 2)).then((_) {
+            if (widget.createMode) {
+              // Creating new entry
+              widget.entryCreate!(
+                  title: _fieldTitle.text,
+                  body: _fieldBody.text,
+                  colorID: _colourID);
+            } else {
+              // Updating entry
+              widget.entryUpdate!(
+                  title: _fieldTitle.text,
+                  body: _fieldBody.text,
+                  id: widget.id,
+                  colorID: _colourID,
+                  updatedAt: DateTime.now().toString());
+            }
+
+            // Clean up form
+            _formCleanUp();
+          });
         }
       },
-      child: const Text('Save Entry'),
+      child: Text(
+        "${widget.createMode ? "Save" : "Update"} Entry",
+      ),
     );
   }
 }

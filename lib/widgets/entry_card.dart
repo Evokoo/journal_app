@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:journal/assets/my_colors.dart';
 import 'package:journal/database/entry_db.dart';
-import 'package:journal/pages/entry_form_page.dart';
+// import 'package:journal/pages/entry_form_page.dart';
+import 'package:journal/pages/form_page.dart';
 
 final entryDB = EntryDB();
 final myColors = ColorHelper();
@@ -103,13 +104,13 @@ class _EntryCardState extends State<EntryCard> {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => EntryFormPage(
+                builder: (context) => InputFormPage(
                   id: widget.id,
                   title: widget.title,
                   body: widget.body,
-                  colorID: widget.colorID,
+                  colourID: widget.colorID,
                   createMode: false,
-                  updateHandler: widget.updateHandler,
+                  entryUpdate: widget.updateHandler,
                 ),
               ),
             );

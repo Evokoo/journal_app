@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:journal/model/entry.dart';
 import 'package:journal/database/entry_db.dart';
-import 'package:journal/pages/entry_form_page.dart';
+// import 'package:journal/pages/entry_form_page.dart';
 import 'package:journal/pages/form_page.dart';
 import 'package:journal/widgets/entry_card.dart';
 
@@ -78,10 +78,10 @@ class _HomePageState extends State<HomePage> {
       required int colorID}) async {
     await entryDB.create(title: title, body: body, colorID: colorID);
 
-    if (mounted) {
-      _fetchEntries();
-      Navigator.pop(context);
-    }
+    // if (mounted) {
+    _fetchEntries();
+    // Navigator.pop(context);
+    // }
   }
 
   Future<void> _upateHandler(
@@ -97,10 +97,10 @@ class _HomePageState extends State<HomePage> {
         colorID: colorID,
         updatedAt: updatedAt);
 
-    if (mounted) {
-      _fetchEntries();
-      Navigator.pop(context);
-    }
+    // if (mounted) {
+    _fetchEntries();
+    // Navigator.pop(context);
+    // }
   }
 
   Future<void> _deleteHandler(String id) async {
@@ -112,9 +112,9 @@ class _HomePageState extends State<HomePage> {
   void _toEntryForm() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => EntryFormPage(
+        builder: (context) => InputFormPage(
           createMode: true,
-          createHandler: _createEntry,
+          entryCreate: _createEntry,
         ),
       ),
     );
