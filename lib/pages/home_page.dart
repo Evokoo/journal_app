@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:journal/model/entry.dart';
 import 'package:journal/database/entry_db.dart';
 import 'package:journal/pages/entry_form_page.dart';
+import 'package:journal/pages/form_page.dart';
 import 'package:journal/widgets/entry_card.dart';
 
 var entryDB = EntryDB();

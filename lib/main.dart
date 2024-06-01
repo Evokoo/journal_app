@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:journal/pages/form_page.dart';
 import 'package:journal/pages/home_page.dart';
 
 void main() {
@@ -11,14 +12,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Journal App',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            scaffoldBackgroundColor: Colors.white,
-            appBarTheme: MyTheme.appBar,
-            cardTheme: MyTheme.card,
-            floatingActionButtonTheme: MyTheme.floatingBtn),
-        home: const HomePage());
+      title: 'Journal App',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: MyTheme.appBar,
+          cardTheme: MyTheme.card,
+          floatingActionButtonTheme: MyTheme.floatingBtn),
+      // home: const HomePage());
+      home: const InputFormPage(),
+    );
   }
 }
 
