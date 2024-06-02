@@ -67,9 +67,7 @@ class _InputFormPageState extends State<InputFormPage> {
           child: Column(
             children: [
               _colourPicker(),
-              // Title
               _textInput(_fieldTitle, "Title"),
-              // Body
               _textInput(_fieldBody, "Body", maxLines: 10),
               _submitButton(),
             ],
@@ -88,10 +86,10 @@ class _InputFormPageState extends State<InputFormPage> {
     Navigator.pop(context);
   }
 
-  Widget _textInput(TextEditingController controller, title,
+  Widget _textInput(TextEditingController controller, String title,
       {int maxLines = 1}) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+      padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
       child: TextFormField(
         controller: controller,
         validator: (value) => FieldValidator.validString(value),
@@ -143,14 +141,13 @@ class _InputFormPageState extends State<InputFormPage> {
         if (_formKey.currentState!.validate()) {
           FocusScope.of(context).unfocus();
 
-          late String msg =
-              "${widget.createMode ? "Saving" : "Updating"} Entry...";
+          String msg = "${widget.createMode ? "Saving" : "Updating"} Entry...";
 
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(msg), duration: Duration(seconds: 2)),
+            SnackBar(content: Text(msg), duration: const Duration(seconds: 2)),
           );
 
-          Future.delayed(Duration(seconds: 2)).then((_) {
+          Future.delayed(const Duration(seconds: 2)).then((_) {
             if (widget.createMode) {
               // Creating new entry
               widget.entryCreate!(
