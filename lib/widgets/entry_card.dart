@@ -62,7 +62,7 @@ class _EntryCardState extends State<EntryCard> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               _titleBar(widget.title),
               _bodyContent(widget.body),
-              _date(),
+              // _date(),
             ])));
   }
 
